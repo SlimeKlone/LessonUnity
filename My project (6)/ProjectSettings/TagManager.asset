@@ -4,12 +4,13 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - YourTag
+  - Booster_Platform
+  - Platform
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 

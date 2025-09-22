@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,9 +8,14 @@ public class PlayerWalk : MonoBehaviour
     private Vector3 targetVelocity;
     private Rigidbody rb;
     public int speed = 3;
+    private bool isGrounded = false;
+    private groundDetector GD;
+    public GameObject groundDetector;
+    private Transform originalParent;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        GD = groundDetector.GetComponent<groundDetector>();
     }
     void FixedUpdate()
     {
@@ -24,7 +30,10 @@ public class PlayerWalk : MonoBehaviour
     {
         if (iv.isPressed)
         {
-            rb.AddForce(Vector3.up * 300f);
+            if (GD.isGrounded)
+            {
+                rb.AddForce(Vector3.up * 300f);
+            }
         }
     }
 
@@ -34,32 +43,36 @@ public class PlayerWalk : MonoBehaviour
         // transform.Translate(MoveOn * Time.deltaTime);
 
         float currentYVelocity = rb.linearVelocity.y;
-        targetVelocity = new Vector3(walk.x, 0, walk.y) * speed;
+        targetVelocity = new Vector3(walk.x, 0, 0) * speed;
         targetVelocity.y = currentYVelocity;
         rb.linearVelocity = targetVelocity;
 
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-
-        if (other.CompareTag("Respawn"))
-        {
-
-            transform.position = new Vector3(0, 1, 0);
-        }
-    }
-
     void OnCollisionEnter(Collision collision)
     {
-        // Проверяем тэг объекта (опционально)
-        if (collision.gameObject.CompareTag("YourTag") && (targetVelocity.y != 0))
+        if (collision.gameObject.CompareTag("Booster_Platform") && (targetVelocity.y != 0))
         {
             float currentYVelocity = rb.linearVelocity.y + 10;
             targetVelocity = new Vector3(walk.x, 0, walk.y) * speed;
             targetVelocity.y = currentYVelocity;
             rb.linearVelocity = targetVelocity;
 
+        }
+
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            originalParent = transform.parent;
+            transform.SetParent(collision.transform, true);
+        }
+
+
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            transform.SetParent(originalParent, true);
         }
     }
 
