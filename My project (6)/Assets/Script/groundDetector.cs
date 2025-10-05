@@ -5,7 +5,7 @@ public class groundDetector : MonoBehaviour
     public bool isGrounded = false;
     
     // Вызывается при входе в триггер
-    void OnTriggerEnter(Collider other) // Исправлено: Collider, а не Collision
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
