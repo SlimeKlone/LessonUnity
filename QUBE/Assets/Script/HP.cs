@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class HP : MonoBehaviour
 {
-    public int maxHealth = 3; // Максимальное количество здоровья
-    public int currentHealth; // Текущее количество здоровья
-    public int i = -1;
+    public int currentHealth = 3; // Текущее количество здоровья
+    public int i = 3;
 
-    // Массив изображений сердечек на канвасе
+   
     public UnityEngine.UI.Image[] heartImages;
     // Массив спрайтов: [0] - полное сердце, [1] - пустое сердце
     public Sprite[] heartSprites;
@@ -15,14 +14,12 @@ public class HP : MonoBehaviour
     {
         if (i < heartImages.Length)
         {
-            // Если индекс текущего сердца МЕНЬШЕ текущего здоровья, оно должно быть полным.
-            if (i < currentHealth)
+
+            if ((0 <= i) && (i < currentHealth))
             {
-                heartImages[i].sprite = heartSprites[0]; // Полное сердце
-            }
-            else
-            {
-                heartImages[i].sprite = heartSprites[1]; // Пустое сердце
+                heartImages[i].sprite = heartSprites[1]; // Полное сердце
+                Debug.Log("Пустое");
+                
             }
         }
     }

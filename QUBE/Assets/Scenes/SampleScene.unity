@@ -2398,9 +2398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806b583b8b9532142b5c0c1aed4f50a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HP
-  maxHealth: 3
-  currentHealth: 0
-  i: -1
+  currentHealth: 3
+  i: 3
   heartImages:
   - {fileID: 602483927}
   - {fileID: 1287646993}

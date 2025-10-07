@@ -10,7 +10,7 @@ public class Respawn : MonoBehaviour
         if (other.CompareTag("Respawn"))
         {
 
-            hp.i += 1;
+            hp.i -= 1;
             hp.UpdateHearts();
             transform.position = new Vector3(0, 3.52f, 0);
         }
